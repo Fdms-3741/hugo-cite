@@ -98,27 +98,16 @@
 {{- if gt (len $bibliographyPath) 0 -}}{{/* Begin Bibliography Loop */}}
 {{- $bibliography := getJSON $bibliographyPath -}}
 {{- /* -------------------- END Bibliography path -------------------- */ -}}
-
-  <span class="hugo-cite-intext"
-        itemprop="citation">(
-
+  
+<span class="hugo-cite-intext" itemprop="citation">(
     {{- /* Range over citation keys */ -}}
-
     {{- range $keyIndex, $key := $keys -}}
-
       {{- range where $bibliography "id" "eq" $key -}}
         {{- $currentRef := . -}}
-        <span class="hugo-cite-group">
-
-          {{/* Add to the collection of cited references */}}
+        <span class="hugo-cite-group">{{/* Add to the collection of cited references */}}
           {{- $.Page.Scratch.SetInMap "citedBib" $key $currentRef -}}
-
-          {{/* Add to the collection of cited references */}}
-          {{- $.Page.Scratch.SetInMap "citedBib" $key $currentRef -}}
-
-          <a href="#{{- $key | urlize -}}"><span class="visually-hidden">Citation: </span>
+          <a href="#{{- $key | urlize -}}">
             {{- $reference := . -}}
-
             {{- /* -------------------- BEGIN Display authors -------------------- */ -}}
             {{- if not $suppressAuthor -}}
               {{- $displayAuthors := $reference.author -}}
@@ -172,7 +161,6 @@
 
           {{- /* Eliminate space between css-hidden citation hover block */ -}}
 
-          <span class="hugo-cite-citation"> {{ partial $partialPath $reference }}</span></span>
 
         {{- if lt (add 1 $keyIndex) $totalRefs -}};&#32;{{- end -}}
 
